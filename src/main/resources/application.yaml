@@ -1,0 +1,37 @@
+server:
+  port: 8787
+  shutdown: graceful
+
+management:
+  server:
+    contextPath: /actuator
+  endpoint:
+    metrics.enabled: true
+    health.enabled: true
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: metrics,info,health
+
+springdoc:
+  paths-to-exclude: /auth/**, /actuator/**, /error/**
+  paths-to-match: /crypto-api/**
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/crypto-store
+
+external:
+  btc-direct-api: https://cmd.btcdirect.eu/v2/price-ticker/BTC,ETH,XRP,LINK,BAT,ADA,LTC,BCH,DASH,BNB,VET,EOS,ETC,XTZ,XMR,XLM,ZEC,DOGE,TRX,ATOM,ALGO,OMG,NANO,QTUM,LSK,ICX,WAVES,DOT,SNX,KNC
+  api:
+    timeouts:
+      connect-timeout: 2000
+      connection-request-timeout: 2000
+      socket-timeout: 1000
+    pool:
+      max-per-route: 10
+      max-total: 30
