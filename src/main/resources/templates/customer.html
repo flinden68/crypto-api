@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="utf-8">
+    <title>Customer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h1>Customer</h1>
+    <div class="col-12" th:each="coin, tabStat : ${coins}">
+        <div class="row">
+            <div th:attr="id=${coin}" class="col-12">
+                <div class="row">
+                    <div class="col-3">
+                        <span th:text="${coin}"></span>
+                    </div>
+                    <div class="col-3">
+                        €&nbsp;<span class="euro">0,00</span>
+                    </div>
+                    <!--<div class="col-3">
+                        $&nbsp;<span class="dollar">0,00</span>
+                    </div>-->
+                    <div class="col-3">
+                        <span class="amount">1</span>
+                    </div>
+                    <div class="col-3">
+                        €&nbsp;<span class="total">0,00</span>
+                    </div>
+                    <div class="col-3">
+                        <input th:attr="id=${coin + '_buy'}" value="0" />
+                        <a href="#" class="btn-wrapper buy" th:attr="coin-code=${coin}">
+                            Buy
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <input th:attr="id=${coin + '_sell'}" value="0" />
+                        <a href="#" class="btn-wrapper sell" th:attr="coin-code=${coin}">
+                            Sell
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h2>Transactions</h2>
+    <table id="transactions" class="table table-striped">
+        <thead>
+            <th>Created</th>
+            <th>Type</th>
+            <th>Coin</th>
+            <th>Amount</th>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<script src="/js/crypto.js"></script>
+</body>
+</html>

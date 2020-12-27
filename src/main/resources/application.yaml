@@ -24,6 +24,8 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/crypto-store
+  thymeleaf:
+    cache: false
 
 external:
   btc-direct-api: https://cmd.btcdirect.eu/v2/price-ticker/BTC,ETH,XRP,LINK,BAT,ADA,LTC,BCH,DASH,BNB,VET,EOS,ETC,XTZ,XMR,XLM,ZEC,DOGE,TRX,ATOM,ALGO,OMG,NANO,QTUM,LSK,ICX,WAVES,DOT,SNX,KNC
@@ -35,3 +37,9 @@ external:
     pool:
       max-per-route: 10
       max-total: 30
+
+logging:
+  level:
+    root: INFO
+    nl.elstarit.crypto: INFO
+    org.springframework.security: INFO
