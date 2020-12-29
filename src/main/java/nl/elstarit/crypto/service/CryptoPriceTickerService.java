@@ -19,16 +19,14 @@ public class CryptoPriceTickerService {
 	ExternalProperty externalProperty;
 
 	@Autowired
-	WebClient webClient;
-
-	@Autowired
 	RestTemplate restTemplate;
 
 	public String getPricesList(){
 		log.debug("Get Crypto Prices from url {}", externalProperty.getBtcDirectApi());
 		ResponseEntity<String> response = restTemplate.exchange(externalProperty.getBtcDirectApi(),
 				HttpMethod.GET,
-				null, String.class);
+				null,
+				String.class);
 		log.debug("Response statuscode = " + response.getStatusCode().toString());
 		if (response.getStatusCode().is2xxSuccessful()) {
 			if (response.hasBody()) {
@@ -41,19 +39,4 @@ public class CryptoPriceTickerService {
 		return null;
 	}
 
-	public Mono<String> getPrices(){
-		log.info("Get Crypto Prices from url {}", externalProperty.getBtcDirectApi());
-		return this.webClient
-				.get()
-				.uri(externalProperty.getBtcDirectApi())
-
-				.retrieve()
-				.onStatus(HttpStatus::is4xxClientError, clientResponse ->
-						Mono.error(new RuntimeException("Crypto Prices could be found"))
-				)
-				.onStatus(HttpStatus::is5xxServerError, clientResponse ->
-						Mono.error(new RuntimeException("Something went wrong: " + clientResponse))
-				)
-				.bodyToMono(String.class);
-	}
 }
