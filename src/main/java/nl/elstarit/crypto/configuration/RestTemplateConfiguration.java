@@ -27,18 +27,13 @@ import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
 @Configuration
-public class WebClientConfiguration {
+public class RestTemplateConfiguration {
 
 	private static final long DEFAULT_KEEP_ALIVE_DURATION_MS = 5;
 	private static final long KEEP_ALIVE_MULTIPLIER = 1000;
 
 	@Autowired
 	private ExternalApiProperties externalApiProperties;
-
-	@Bean
-	public WebClient defaultWebClient() {
-		return WebClient.builder().build();
-	}
 
 	@Bean
 	public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {

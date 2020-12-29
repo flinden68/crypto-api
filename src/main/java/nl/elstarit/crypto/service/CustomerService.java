@@ -23,8 +23,5 @@ public class CustomerService {
 		customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
 		customerRespository.save(customer).subscribe(result -> log.info("Entity has been saved: {}", result));;
 	}
-
-	public Mono<Customer> findByName(String name) {
-		return customerRespository.findByName(name);
-	}
+	
 }
