@@ -34,7 +34,13 @@ $(document).ready(function() {
 
     $(".sell").on('click', function(){
         let coinCode = $(this).attr("coin-code");
-        callTransactionService('sell', coinCode, $("#" + coinCode + "_sell").val());
+        let amount = Number.parseFloat($("#" + coinCode + "_sell").val());
+        let totalAmount = Number.parseFloat($("#" + coinCode).find(".amount").text());
+
+        if(amount > totalAmount){
+            amount = totalAmount;
+        }
+        callTransactionService('sell', coinCode, amount);
     });
 });
 

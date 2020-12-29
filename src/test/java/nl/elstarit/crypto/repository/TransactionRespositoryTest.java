@@ -3,7 +3,6 @@ package nl.elstarit.crypto.repository;
 import lombok.extern.slf4j.Slf4j;
 import nl.elstarit.crypto.MongodbContainerInitializer;
 import nl.elstarit.crypto.model.Transaction;
-import nl.elstarit.crypto.model.TransactionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
