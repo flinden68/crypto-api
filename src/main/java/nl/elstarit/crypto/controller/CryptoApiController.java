@@ -1,6 +1,5 @@
 package nl.elstarit.crypto.controller;
 
-import nl.elstarit.crypto.model.Customer;
 import nl.elstarit.crypto.model.Transaction;
 import nl.elstarit.crypto.model.TransactionType;
 import nl.elstarit.crypto.service.CryptoPriceTickerService;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.math.BigDecimal;
 import java.time.Duration;
 
 @RestController
@@ -39,42 +38,30 @@ public class CryptoApiController {
 	}
 
 	@GetMapping("/buy/{coinCode}/{amount}")
-	public Mono<Transaction> buy(@PathVariable("coinCode") String coinCode, @PathVariable("amount") String amount, @AuthenticationPrincipal Customer customer){
-		if (customer == null) {
+	public Mono<Transaction> buy(@PathVariable("coinCode") String coinCode, @PathVariable("amount") String amount, @AuthenticationPrincipal UserDetails userDetails){
+		if (userDetails == null) {
 			return Mono.empty();
 		}
 
-		Transaction transaction = new Transaction();
-		transaction.setAmount(new BigDecimal(amount));
-		transaction.setCurrencyCode(coinCode);
-		transaction.setCustomerId(customer.getId());
-		transaction.setType(TransactionType.BUY);
-
-		return transactionService.save(transaction);
+		return transactionService.save(coinCode, amount, userDetails.getUsername(), TransactionType.BUY);
 	}
 
 	@GetMapping("/sell/{coinCode}/{amount}")
-	public Mono<Transaction> sell(@PathVariable("coinCode") String coinCode, @PathVariable("amount") String amount, @AuthenticationPrincipal Customer customer){
-		if (customer == null) {
+	public Mono<Transaction> sell(@PathVariable("coinCode") String coinCode, @PathVariable("amount") String amount, @AuthenticationPrincipal UserDetails userDetails){
+		if (userDetails == null) {
 			return Mono.empty();
 		}
 
-		Transaction transaction = new Transaction();
-		transaction.setAmount(new BigDecimal(amount));
-		transaction.setCurrencyCode(coinCode);
-		transaction.setCustomerId(customer.getId());
-		transaction.setType(TransactionType.BUY);
-
-		return transactionService.save(transaction);
+		return transactionService.save(coinCode, amount, userDetails.getUsername(), TransactionType.SELL);
 	}
 
 	@GetMapping("/transactions")
-	public Flux<Transaction> transactions(@AuthenticationPrincipal Customer customer){
-		if (customer == null) {
+	public Flux<Transaction> transactions(@AuthenticationPrincipal UserDetails userDetails){
+		if (userDetails == null) {
 			return Flux.empty();
 		}
 
-		return transactionService.findByCustomerId(customer.getId());
+		return transactionService.findByCustomerName(userDetails.getUsername());
 	}
 
 }

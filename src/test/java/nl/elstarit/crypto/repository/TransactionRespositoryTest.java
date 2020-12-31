@@ -35,19 +35,19 @@ class TransactionRespositoryTest {
 	}
 
 	@Test
-	void testFindByCustomerId() {
+	void testFindByCustomerName() {
 		Transaction transaction1 = transaction(transaction -> {
-			transaction.setCustomerId("user");
+			transaction.setCustomerName("user");
 		});
 
 		Transaction transaction2 = transaction(transaction -> {
-			transaction.setCustomerId("user");
+			transaction.setCustomerName("user");
 			transaction.setAmount(BigDecimal.TEN);
 		});
 
 		Flux<Transaction> allTransactions = Flux.just(transaction1, transaction2)
 				.flatMap(this.transactionRespository::save)
-				.thenMany(this.transactionRespository.findByCustomerId("user2"));
+				.thenMany(this.transactionRespository.findByCustomerName("user"));
 
 		StepVerifier.create(allTransactions)
 				.expectNextMatches(t -> t.getAmount().equals(BigDecimal.ONE))

@@ -37,10 +37,10 @@ public class WebSecurityConfiguration {
             .pathMatchers("/js/**").permitAll()
             .anyExchange().authenticated()
             .and()
-            .formLogin()
-            .loginPage("/login")
+            .httpBasic()
             .and()
-            .csrf().disable()
+            .formLogin()
+            .and()
             .build();
   }
 

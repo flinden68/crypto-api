@@ -31,6 +31,7 @@ public class Transaction{
 	protected LocalDateTime modified = LocalDateTime.now();
 
 	String customerId;
+	String customerName;
 	String currencyCode;
 	BigDecimal amount;
 	TransactionType type;
