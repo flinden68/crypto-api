@@ -2,13 +2,14 @@
 crypto assesment
 
 
-## Postgress tables
+## Build a docker image
+native in 2.3.0 and higher
 ```
-create table users(
-    id SERIAL PRIMARY KEY,
-    username TEXT NOT NULL,
-    password TEXT NOT NULL,
-    created DATE NOT NULL,
-    modified DATE NOT NULL
-)
+spring-boot:build-image
+```
+
+or via a DockerFile
+```
+mvn clean install
+docker build  -t crypto-api 
 ```
