@@ -8,23 +8,23 @@
 <body>
 <div class="container">
     <h1>Customer</h1>
-    <div class="col-12" th:each="coin, tabStat : ${coins}">
+    <div class="col-12 card" th:each="coin, tabStat : ${coins}" style="margin-bottom: 20px;">
         <div class="row">
             <div th:attr="id=${coin}" class="col-12">
                 <div class="row">
                     <div class="col-3">
-                        <span th:text="${coin}"></span>
+                        <strong th:text="${coin}"></strong>
                     </div>
                     <div class="col-3">
+                        <strong>rate:</strong>
                         €&nbsp;<span class="euro">0,00</span>
                     </div>
-                    <!--<div class="col-3">
-                        $&nbsp;<span class="dollar">0,00</span>
-                    </div>-->
                     <div class="col-3">
-                        <span class="amount">1</span>
+                        <strong>amount:</strong>
+                        <span class="amount">0</span>
                     </div>
                     <div class="col-3">
+                        <strong>total:</strong>
                         €&nbsp;<span class="total">0,00</span>
                     </div>
                     <div class="col-3">
