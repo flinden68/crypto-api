@@ -1,6 +1,16 @@
 # crypto-api
 crypto assesment
 
+## What is inside
+* welcome page
+* registration page for new account
+* login page to go to a dashboard page
+
+On this dashboard page
+* current prices of crypto currencies
+* sell or buy crypto currencies
+* directly see the new amount and the updated total
+
 ## Datastore
 The datastore used for this project is MongoDb, when installed locally it will run on
 default port 27017
